@@ -1,0 +1,45 @@
+[
+  {
+    "id": "1",
+    "nombre": "Saco de Hombre",
+    "precio": 5000,
+   
+    "stock": "10",
+    "descripcion": "Saco de Hombre"
+  },
+  {
+    "id": "2",
+    "nombre": "Saco de Hombre Marron",
+    "precio": 7000,
+    "stock": "5",
+    "descripcion":"Saco de Hombre Marron"
+  },
+  {
+   " id": "3",
+    "nombre": "Saco de Hombre Marron Largo",
+    "precio": 5500,
+    "stock": "3",
+    "descripcion":"Saco de Hombre Marron Largo"
+  },
+  {
+   "id": "4",
+    "nombre": "Conjunto de Ropa de Mombre",
+    "precio": 11000,
+    "stock": "0",
+    "descripcion":"Conjunto de Ropa de Mombre"
+  },
+  {
+   " id": "5",
+    "nombre": "Saco Morado de Hombre",
+    "precio": 6000,
+    "stock": "7",
+    "descripcion":"Saco Morado de Hombre"
+  },
+  {
+   " id": "6",
+    "nombre": "Traje Gris de Hombre",
+    "precio": 9000,
+    "stock": "8",
+    "descripcion":"Traje Gris de Hombre"
+  }
+]
