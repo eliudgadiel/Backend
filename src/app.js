@@ -6,6 +6,11 @@ const app = express();
 const productManager = new ProductManager('./products.json');
 
 
+app.get('/', (req, res) => {
+  res.send('server Up ')
+})
+
+
   app.get('/products', async (req, res) => {
   const result = await productManager.getProducts()
   const limit = req.query.limit
@@ -18,12 +23,12 @@ const productManager = new ProductManager('./products.json');
 
 app.get('/products/:id', async (req, res) => {
  const id = req.params.id
- const result = await productManager.getProductById(id)
- if (typeof result == 'string') {
-    const error = result.split(' ')
-    return res.status(parseInt(error[0].slice(1,4))).json({ error: result.slice(6)})
+ const products = await productManager.getProductById(id)
+
+ if (!products || Object.keys(products).length === 0) {
+   return res.status(404).json({ error: "Product not found"})
  }
- res.status(200).json({ payload: result })
+ res.status(200).json({ payload: products })
 });
 
 
