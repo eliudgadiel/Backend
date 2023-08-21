@@ -1,36 +1,12 @@
 import express from 'express';
-import  ProductManager  from './ProductManager.js';
+import cartrouter from './routers/cartrouter.js'
+import productrouter from './routers/productrouter.js'
+
 
 
 const app = express();
-const productManager = new ProductManager('./products.json');
-
-
-app.get('/', (req, res) => {
-  res.send('server Up ')
-})
-
-
-  app.get('/products', async (req, res) => {
-  const result = await productManager.getProducts()
-  const limit = req.query.limit
-  if (typeof result == 'string'){
-    const error = result.split(' ')
-    return res.status(parseInt(error[0].split(1,4))).json({ error: result.split(6) })
-  }
-  res.status(200).json({ payload: result.slice(0, limit)})
-  });
-
-app.get('/products/:id', async (req, res) => {
- const id = req.params.id
- const products = await productManager.getProductById(id)
-
- if (!products || Object.keys(products).length === 0) {
-   return res.status(404).json({ error: "Product not found"})
- }
- res.status(200).json({ payload: products })
-});
-
-
+app.use(express.json())
+app.use('/api/products', productrouter)
+app.use('/api/carts', cartrouter)
 
 app.listen(8080, () => console.log('server Up')) 

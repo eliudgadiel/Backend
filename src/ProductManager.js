@@ -53,8 +53,7 @@ class ProductManager {
   async getProductById(productId) {
     const products = this.getProductsFromFile();
     const product = products.find(item => item.id === productId);
-    if (!product) return "Error: producto no encontrado";
-    return product;
+    return product || null;
   }
 
   async updateProduct(id, updatedFields) {
@@ -67,7 +66,7 @@ class ProductManager {
     }
     return "Error: producto no encontrado";
   }
-
+  
   async deleteProduct(id) {
     const products = this.getProductsFromFile();
     const newProducts = products.filter(product => product.id !== id);
@@ -75,8 +74,9 @@ class ProductManager {
       await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, 2));
       return newProducts;
     }
-    return "Error: producto no encontrado";
-  }
+    return this.getProducts(); // Retorna la lista actualizada de productos sin el mensaje de eliminación
+}
+
 }
 
 export default ProductManager;

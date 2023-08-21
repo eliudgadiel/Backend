@@ -1,0 +1,79 @@
+[
+  {
+    "id": "1",
+    "title": "Saco de Hombre",
+    "price": 5000,
+    "stock": "10",
+    "description": "Saco de Hombre",
+    "thumbnail": [
+      "../img/img-1.png"
+    ],
+    "status": true,
+    "code": "EP001"
+  },
+  {
+    "id": "2",
+    "title": "Saco de Hombre Marron",
+    "price": 7000,
+    "stock": "5",
+    "description": "Saco de Hombre Marron",
+    "thumbnail": [
+      "../img/img-2.png"
+    ],
+    "status": true,
+    "code": "EP002",
+    "caterory": "hombre"
+  },
+  {
+    "id": "3",
+    "title": "Saco de Hombre Marron Largo",
+    "price": 5500,
+    "stock": "3",
+    "description": "Saco de Hombre Marron Largo",
+    "thumbnail": [
+      "../img/img-3.png"
+    ],
+    "status": true,
+    "code": "EP003",
+    "caterory": "hombre"
+  },
+  {
+    "id": "4",
+    "title": "Conjunto de Ropa de Hombre",
+    "price": 11000,
+    "stock": "0",
+    "description": "Conjunto de Ropa de Hombre",
+    "thumbnail": [
+      "../img/img-4.png"
+    ],
+    "status": true,
+    "code": "EP004",
+    "caterory": "hombre"
+  },
+  {
+    "id": "5",
+    "title": "Saco Morado de Hombre",
+    "price": 6000,
+    "stock": "7",
+    "description": "Saco Morado de Hombre",
+    "thumbnail": [
+      "../img/img-5.png"
+    ],
+    "status": true,
+    "code": "EP005",
+    "caterory": "hombre"
+  },
+  {
+    "id": "6",
+    "title": "Traje Gris de Hombre",
+    "price": 9000,
+    "stock": "8",
+    "description": "Traje Gris de Hombre",
+    "thumbnail": [
+      "../img/img-6.png"
+    ],
+    "status": true,
+    "code": "EP006",
+    "caterory": "hombre"
+  }
+]
