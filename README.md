@@ -1,12 +1,20 @@
 # Proyecto de Backquend
 Funcionalidad y Rutas de la App.
 
-## Rutas
+## Rutas Productos
 ### Get
 
 - http://localhost:8080/api/products = Trae todos los productos.
 
 - http://localhost:8080/api/products?limit=2 = Devuelve por parametro la cantidad de productos que le pidas.
+
+### Delete
+
+- http://localhost:8080/api/products/2 = Elimina el producto y si el producto no existe sale status (404). y si buscas el producto eliminado no lo consigue y sale status (404).
+
+### Put
+
+- http://localhost:8080/api/products/5 = Edita cual quier producto por el parametro que le indiques.
 
 ## Carts
 ### Post
@@ -19,13 +27,7 @@ Funcionalidad y Rutas de la App.
 
 - http://localhost:8080/api/carts/1 = Muestra los el carrito con su productos, si le pasa un id incorrecto sale status (404).
 
-### Delete
 
-- http://localhost:8080/api/products/2 = Elimina el producto y si el producto no existe sale status (404). y si buscas el producto eliminado no lo consigue y sale status (404).
-
-### Put
-
-- http://localhost:8080/api/products/5 = Edita cual quier producto por el parametro que le indiques.
 
 
 
