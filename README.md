@@ -14,7 +14,7 @@ Funcionalidad y Rutas de la App.
 
 ### Put
 
-- http://localhost:8080/api/products/5 = Edita cual quier producto por el parametro que le indiques.
+- http://localhost:8080/api/products/5 = Edita cualquier producto por el parametro que le indiques.
 
 ## Carts
 ### Post

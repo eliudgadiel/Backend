@@ -6,7 +6,7 @@
     "stock": "10",
     "description": "Saco de Hombre",
     "thumbnail": [
-      "../img/img-1.png"
+      "../public/img/img-1.png"
     ],
     "status": true,
     "code": "EP001"
@@ -18,7 +18,7 @@
     "stock": "5",
     "description": "Saco de Hombre Marron",
     "thumbnail": [
-      "../img/img-2.png"
+      "../public/img/img-2.png"
     ],
     "status": true,
     "code": "EP002",
@@ -31,7 +31,7 @@
     "stock": "3",
     "description": "Saco de Hombre Marron Largo",
     "thumbnail": [
-      "../img/img-3.png"
+      "../public/img/img-3.png"
     ],
     "status": true,
     "code": "EP003",
@@ -44,7 +44,7 @@
     "stock": "0",
     "description": "Conjunto de Ropa de Hombre",
     "thumbnail": [
-      "../img/img-4.png"
+      "../public/img/img-4.png"
     ],
     "status": true,
     "code": "EP004",
@@ -57,7 +57,7 @@
     "stock": "7",
     "description": "Saco Morado de Hombre",
     "thumbnail": [
-      "../img/img-5.png"
+      "../public/img/img-5.png"
     ],
     "status": true,
     "code": "EP005",
@@ -70,7 +70,7 @@
     "stock": "8",
     "description": "Traje Gris de Hombre",
     "thumbnail": [
-      "../img/img-6.png"
+      "../public/img/img-6.png"
     ],
     "status": true,
     "code": "EP006",
