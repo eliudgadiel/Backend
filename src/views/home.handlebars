@@ -1,8 +1,64 @@
-{{#each listadeproductos}}
-
-<p></p>
-
-{{/each}}
+<h2> Productos </h2>
 
 
-   
+<style>
+ /* Estilo para la tabla */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tbody tr:hover {
+  background-color: #ddd;
+}
+
+</style>
+
+<hr />
+
+<table class="table">
+
+  <thead>
+    <tr>
+      <td> <strong>producto</strong> </td>
+      <td><strong>Descripcion</strong> </td>
+      <td><strong> precio</strong></td>
+      <td><strong> codigo</strong></td>
+      <td><strong> stock</strong></td>
+      <td><strong> categori</strong></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each products}}
+      <tr>
+        <td> {{this.title}} </td>
+        <td> {{this.description}} </td>
+        <td> {{this.price}} </td>
+        <td> {{this.code}} </td>
+        <td> {{this.stock}} </td>
+        <td> {{this.category}} </td>
+      </tr>
+
+    {{/each}}
+
+  </tbody>
+</table>

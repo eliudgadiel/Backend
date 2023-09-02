@@ -8,29 +8,30 @@ import { Server } from 'socket.io';
 
 
 const app = express();
+app.use(express.json())
+app.use(express.static('./src/public'))
 
 // setear handlebars
 app.engine('handlebars', handlebars.engine())
 app.set('views', './src/views')
 app.set('view engine', 'handlebars')
 
-app.use(express.json())
+
+app.get('/', (req, res) => res.render('index'))
 app.use('/api/products', productrouter)
 app.use('/api/carts', cartrouter)
-app.use('/', viewrouter )
+app.use('/products', viewrouter )
 
 
 
 
-const httpServer = app.listen(8080, () => console.log('server Up')) 
-const socketServer = new Server(httpServer)
+const server = app.listen(8080, () => console.log('server Up')) 
+const io = new Server(server)
 
-import ProductManager from "../productManager.js"
-const  productssocket = new ProductManager('./data/products.json');
 
-socketServer.on('connection',async (socketClient) => {
-    console.log(`nuevo cliente conectado: ${socketClient.id}`)
-   const listadeproductos = await productssocket.getProducts({})
-     socketServer.emit('enviarProducts', listadeproductos)
-    
+io.on('connection', socket => {
+    console.log(`nuevo cliente conectado`)
+    socket.on('productList', data => {
+      io.emit('updatedProducts', data)
+    }) 
 })

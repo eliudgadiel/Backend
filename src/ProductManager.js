@@ -18,8 +18,8 @@ class ProductManager {
   }
 
   async addProduct(product) {
-    if (!product.title || !product.description || !product.price || !product.thumbnail || !product.code || !product.stock) {
-      return "Error: faltan campos obligatorios";
+    if (!product.title || !product.description || !product.price  || !product.code || !product.stock) {
+      return { statusCode: 400, error: "Error: faltan campos obligatorios" };
     }
 
     let data = await fs.promises.readFile(this.path, "utf-8");
@@ -27,14 +27,15 @@ class ProductManager {
 
     const found = products.find(item => item.code === product.code);
     if (found) {
-      return "Error: el código ya existe";
+      return { statusCode: 409, error: "Error: el código ya existe" };
     }
 
     const productToAdd = { id: this.#generateID(products), ...product };
     products.push(productToAdd);
     await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
-    return productToAdd;
-  }
+    return { statusCode: 201, payload: productToAdd };
+}
+
 
   getProductsFromFile() {
     try {

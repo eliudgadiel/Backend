@@ -29,5 +29,11 @@ Funcionalidad y Rutas de la App.
 
 
 
+# Websockets Agregar y Eliminar un Producto
 
+## Rutas
+
+- http://localhost:8080/products
+
+- http://localhost:8080/products/realTimeProducts 
 

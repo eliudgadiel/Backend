@@ -1,6 +1,117 @@
 
+ <style>
+        /* Estilos para el formulario */
+        #createForm {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
+        #createForm div {
+            margin: 10px 0;
+        }
 
+        #createForm input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
 
- <script src="/socket.io/socket.io.js"></script>
- <script src="index.js"></script>
+        #boton-create {
+            display: block;
+            margin: 10px 0;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #boton-create:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para la tabla */
+        #tablareal {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #tablareal th, #tablareal td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #tablareal th {
+            background-color: #f2f2f2;
+        }
+
+        .deleteProduct {
+            background-color: #FF0000;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .deleteProduct:hover {
+            background-color: #CC0000;
+        }
+    </style>
+
+<h1> Tiempo Real de los Productos </h1>
+<hr />
+
+<form id="createForm">
+  <div>Title: <input type="text" id="title" /></div>
+  <div>Description: <input type="text" id="description" /></div>
+  <div>Price: <input type="text" id="price" /></div>
+  <div>Code: <input type="text" id="code" /></div>
+  <div>Stock: <input type="text" id="stock" /></div>
+  <div>Category: <input type="text" id="category" /></div>
+</form>
+<button id="boton-create">Crear Producto</button>
+
+<hr />
+
+<table id="tablareal">
+  <thead>
+    <tr>
+      <td><strong></strong></td>
+       <td><strong>producto</strong> </td>
+      <td><strong>Descripcion</strong> </td>
+      <td><strong> precio</strong></td>
+      <td><strong> codigo</strong></td>
+      <td><strong> stock</strong></td>
+      <td><strong> categori</strong></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each products}}
+
+      <tr>
+        <td>
+          <button
+            class="deleteProduct"
+            onclick="deleteProduct({{this.id}})"
+          >Eliminar</button></td>
+        <td> {{this.title}} </td>
+        <td> {{this.description}} </td>
+        <td> {{this.price}} </td>
+        <td> {{this.code}} </td>
+        <td> {{this.stock}} </td>
+        <td> {{this.category}} </td>
+      </tr>
+
+    {{/each}}
+  </tbody>
+
+</table>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
