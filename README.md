@@ -37,6 +37,10 @@ Funcionalidad y Rutas de la App.
 
 - http://localhost:8080/products/realTimeProducts 
 
+
+## Funcionamiento de  Mongo 
+
+
 ### Pagina
 
 - http://localhost:8080/products
@@ -47,8 +51,6 @@ Funcionalidad y Rutas de la App.
 
 - http://localhost:8080/products?stock=10
 
-
-## Funcionamiento de  Mongo 
 
 ### api/product
 
