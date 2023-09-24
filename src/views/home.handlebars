@@ -1,4 +1,6 @@
-<h2> Productos </h2>
+<div class="title-container">
+  <h2> Productos </h2>
+</div>
 
 
 <style>
@@ -10,7 +12,13 @@
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
 }
-
+.title-container {
+    text-align: center; 
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+  }
+  
 .table th, .table td {
   border: 1px solid #ddd;
   padding: 12px;
@@ -30,26 +38,100 @@
   background-color: #ddd;
 }
 
+.AddToCart {
+            background-color: green;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .AddToCart:hover {
+            background-color: rgb(30, 79, 30);
+        }
+
+
+
+
+  .page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+      text-align: center; 
+  }
+
+
+  .page a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #3498db; 
+    color: #ffffff; 
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .page a:hover {
+    background-color: #2980b9; 
+  }
+
+ 
+  .page a.prev, .page a.next {
+    font-weight: bold;
+  }
+
+ 
+  .page a.prev {
+    margin-right: 20px;
+  }
+
+  .page a.next {
+    margin-left: 20px;
+  }
+
 </style>
 
 <hr />
+
+<div class="page-container">
+  <div class="page">
+  {{#if paginateInfo.hasPrevPage}}
+  <a href="{{paginateInfo.prevLink}}">Anterior</a>
+  {{/if}}
+  
+  {{#each paginateInfo.totalPages}}
+  <a href="{{this.link}}"> {{this.page}} </a>
+  {{/each}}
+  
+  {{#if paginateInfo.hasNextPage}}
+  <a href="{{paginateInfo.nextLink}}">Siguiente</a>
+  {{/if}}
+  
+  </div>
+  
+</div>
 
 <table class="table">
 
   <thead>
     <tr>
+      <td></td>
       <td> <strong>producto</strong> </td>
       <td><strong>Descripcion</strong> </td>
       <td><strong> precio</strong></td>
       <td><strong> codigo</strong></td>
       <td><strong> stock</strong></td>
-      <td><strong> categori</strong></td>
+      <td><strong> category</strong></td>
     </tr>
   </thead>
 
   <tbody>
     {{#each products}}
       <tr>
+        <td><button class="AddToCart" onclick="addProductToCart('{{this._id}}')">AddToCart</button></td>
         <td> {{this.title}} </td>
         <td> {{this.description}} </td>
         <td> {{this.price}} </td>
@@ -62,3 +144,31 @@
 
   </tbody>
 </table>
+
+
+<script>
+addProductToCart = (pid) => {
+  fetch(`/api/carts`, {
+    method: 'post'
+  })
+   .then(result => result.json())
+   .then(result => {
+    if (result.status === 'error') throw new Error(result.error)
+    return result.payload._id
+   })
+   .then(cid =>
+   fetch(`/api/carts/${cid}/product/${pid}`,{
+    method: 'post'
+   })
+   )
+  .then(result => result.json())
+  .then(result => {
+    if (result.status === 'error') throw new Error(result.error)
+    alert(`Producto agregado al carrito con id=${result.payload._id}`)
+  })
+.catch(err => alert(`ocurrio un error ${err}`))
+}
+ 
+
+
+</script>

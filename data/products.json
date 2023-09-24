@@ -10,7 +10,7 @@
     ],
     "status": true,
     "code": "EP001",
-    "caterory": "hombre"
+    "category": "hombre"
   },
   {
     "id": "2",
@@ -23,7 +23,7 @@
     ],
     "status": true,
     "code": "EP002",
-    "caterory": "hombre"
+    "category": "hombre"
   },
   {
     "id": "3",
@@ -36,7 +36,7 @@
     ],
     "status": true,
     "code": "EP003",
-    "caterory": "hombre"
+    "category": "hombre"
   },
   {
     "id": "4",
@@ -49,7 +49,7 @@
     ],
     "status": true,
     "code": "EP004",
-    "caterory": "hombre"
+    "category": "hombre"
   },
   {
     "id": "5",
@@ -62,19 +62,71 @@
     ],
     "status": true,
     "code": "EP005",
-    "caterory": "hombre"
+    "category": "hombre"
   },
   {
     "id": "6",
-    "title": "Traje Gris de Hombre",
+    "title": "Conjunto Blanco Con Cartera Blanca de Mujer",
     "price": 9000,
     "stock": "8",
-    "description": "Traje Gris de Hombre",
+    "description": "Conjunto Blanco Con Cartera Blanca de Mujer",
     "thumbnail": [
       "../img/img-6.png"
     ],
     "status": true,
     "code": "EP006",
-    "caterory": "hombre"
+    "category": "mujer"
+  },
+  {
+    "id": "7",
+    "title": "Cartera Con Saco de Cuadro de Mujer",
+    "price": 15000,
+    "stock": "4",
+    "description": "Cartera Con Saco de Cuadro de Mujer",
+    "thumbnail": [
+      "../img/img-7.png"
+    ],
+    "status": true,
+    "code": "EP007",
+    "category": "mujer"
+  },
+  {
+    "id": "8",
+    "title": "Cartera, Botas y Gorro Blanco de Mujer",
+    "price": 9090,
+    "stock": "6",
+    "description": "Cartera, Botas y Gorro Blanco de Mujer",
+    "thumbnail": [
+      "../img/img-8.png"
+    ],
+    "status": true,
+    "code": "EP008",
+    "category": "mujer"
+  },
+  {
+    "id": "9",
+    "title": "Buso, Riñonera y Falda Larga de Mujer",
+    "price": 8800,
+    "stock": "6",
+    "description": "Buso, Riñonera y Falda Larga de Mujer",
+    "thumbnail": [
+      "../img/img-9.png"
+    ],
+    "status": true,
+    "code": "EP009",
+    "category": "mujer"
+  },
+  {
+    "id": "10",
+    "title": "Saco y Gorro Marron de Mujere",
+    "price": 8800,
+    "stock": "5",
+    "description": "Saco y Gorro Marron de Mujere",
+    "thumbnail": [
+      "../img/img-10.png"
+    ],
+    "status": true,
+    "code": "EP010",
+    "category": "mujer"
   }
 ]

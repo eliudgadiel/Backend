@@ -37,3 +37,38 @@ Funcionalidad y Rutas de la App.
 
 - http://localhost:8080/products/realTimeProducts 
 
+### Pagina
+
+- http://localhost:8080/products
+
+- http://localhost:8080/products?limit=3
+
+- http://localhost:8080/products?limit=3&page=4
+
+- http://localhost:8080/products?stock=10
+
+
+## Funcionamiento de  Mongo 
+
+### api/product
+
+http://localhost:8080/api/products
+http://localhost:8080/api/products?limit=3
+http://localhost:8080/api/products?limit=3&page=4
+http://localhost:8080/api/products?limit=3&page=3sort=asc
+http://localhost:8080/api/products?&sort=asc
+http://localhost:8080/api/products?&sort=desc
+http://localhost:8080/api/products?category=hombre o mujer
+
+### api/carts
+
+- post/ http://localhost:8080/api/carts
+- get/ http://localhost:8080/api/carts/65107b3b535f894c489137d4
+- post/ http://localhost:8080/api/carts/651081c91ee3ebcb0bd48362/product/65106221b0e9a850d0a5ac90
+- delete/ http://localhost:8080/api/carts/651081c91ee3ebcb0bd48362/product/65106221b0e9a850d0a5ac90
+- put/ http://localhost:8080/api/carts/651081c91ee3ebcb0bd48362
+
+- put/ http://localhost:8080/api/carts/651081c91ee3ebcb0bd48362/product/65106221b0e9a850d0a5ac94
+- este put no me funciono.. por que el thunder cLient se quedaba cargando reinicie la pc. todo y sigue igual. sino le funciona me avisa tutor
+
+- delete/ http://localhost:8080/api/carts/651081c91ee3ebcb0bd48362
