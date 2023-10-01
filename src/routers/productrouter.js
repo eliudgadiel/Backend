@@ -2,6 +2,7 @@ import { Router } from "express";
 import { PORT } from "../app.js";
 import productModel from "../dao/models/product.model.js";
 
+
 const router = Router();
 
 
@@ -104,7 +105,7 @@ router.get('/', async (req, res) => {
 
 
 
-router.get("/:pid", async (req, res) => {
+router.get("/:pid",  async (req, res) => {
   try {
     const id = req.params.pid;
     const product = await productModel.getProductById(id);
@@ -137,7 +138,7 @@ router.post("/", async (req, res) => {
 });
 
 
-router.put("/:pid", async (req, res) => {
+router.put("/:pid",  async (req, res) => {
   try {
     const pid = req.params.pid;
     const updatedFields = req.body;
@@ -154,7 +155,7 @@ router.put("/:pid", async (req, res) => {
 });
 
 
-router.delete("/:pid", async (req, res) => {
+router.delete("/:pid",  async (req, res) => {
   try {
     const id = req.params.pid;
     const result = await productModel.deleteProduct(id);

@@ -2,11 +2,12 @@ import { Router } from "express";
 import { getProducts } from "./productrouter.js";
 import { PORT } from "../app.js";
 import { getProductsFromCart } from "./cartrouter.js"
+import { publicRouter } from "../middlewares/auth.middleware.js";
 
 const router = Router()
 
 
-router.get("/", async (req, res) => {
+router.get("/", publicRouter, async (req, res) => {
     const result = await getProducts(req, res)
     if (result.statusCode === 200) {
         const totalPages = []
@@ -20,7 +21,8 @@ router.get("/", async (req, res) => {
             }
             totalPages.push({ page: index, link})
         }
-        res.render('home', {products: result.response.payload, paginateInfo: {
+        const user = req.session.user
+        res.render('home', { user, products: result.response.payload, paginateInfo: {
             hasPrevPage: result.response.hasPrevPage,
             hasNextPage: result.response.hasNextPage,
             prevLink: result.response.prevLink,
@@ -33,7 +35,7 @@ router.get("/", async (req, res) => {
     }) 
 
 
-router.get('/realTimeProducts', async (req, res) => {
+router.get('/realTimeProducts', publicRouter, async (req, res) => {
     const result = await getProducts(req, res)
 if (result.statusCode === 200) {
     res.render('realTimePRoducts', {products: result.response.payload})
@@ -43,7 +45,7 @@ if (result.statusCode === 200) {
 }) 
 
 
-router.get('/:cid', async (req, res) => {
+router.get('/:cid', publicRouter, async (req, res) => {
     const result = await getProductsFromCart(req, res)
     if (result.statusCode === 200) {
         res.render('productsFromCart', { cart: result.response.payload })

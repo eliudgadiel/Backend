@@ -2,6 +2,7 @@ import { Router } from "express";
 import cartModel from "../dao/models/cart.model.js";
 import productModel from "../dao/models/product.model.js"
 
+
 const router = Router()
 
 
@@ -28,7 +29,7 @@ export const getProductsFromCart = async (req, res) => {
 }
 
 
-router.post('/', async (req, res) => {
+router.post('/',  async (req, res) => {
    try {
     const result = await cartModel.create({})
     res.status(201).json({ status: 'success', payload: result})
@@ -37,7 +38,7 @@ router.post('/', async (req, res) => {
    }
 })
 
-router.get('/:cid', async (req, res) => {
+router.get('/:cid',  async (req, res) => {
    const result = await getProductsFromCart(req, res)
    res.status(result.statusCode).json(result.response)
 })
@@ -82,7 +83,7 @@ try {
 
 
 
-  router.delete('/:cid/product/:pid', async (req, res) => {
+  router.delete('/:cid/product/:pid',  async (req, res) => {
     try {
       const cid = req.params.cid
       const pid = req.params.pid
@@ -108,7 +109,7 @@ try {
   })
   
 
-router.put('/:cid', async (req, res) => {
+router.put('/:cid',  async (req, res) => {
   try {
     const cid = req.params.cid
     const cartToUpdate = await cartModel.findById(cid)
@@ -144,7 +145,7 @@ res.status(200).json({ status: 'succes', payload: result})
 })
 
 
-router.put('/:cid/product/:pid', async (req, res) => {
+router.put('/:cid/product/:pid',  async (req, res) => {
   try {
     const cid = req.params.cid
     const pid = req.params.pid
@@ -176,7 +177,7 @@ router.put('/:cid/product/:pid', async (req, res) => {
 
 
 
-router.delete('/:cid', async (req, res) => {
+router.delete('/:cid',   async (req, res) => {
   try {
     const cid = req.params.cid
     const cartToUpdate = await cartModel.findById(cid)

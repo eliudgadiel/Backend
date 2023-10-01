@@ -1,12 +1,11 @@
-import mongoose from "mongoose";
-
+import mongoose from 'mongoose'
 
 const messageSchema = new mongoose.Schema({
-  user: String,
-  message: String
-});
+    user: { type: String, required: true },
+    message: { type: String, required: true }
+})
 
-mongoose.set('strictQuery', false);
-const Message = mongoose.model('message', messageSchema);
+mongoose.set('strictQuery', false)
+const messageModel = mongoose.model('messages', messageSchema)
 
-export default Message
+export default messageModel

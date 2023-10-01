@@ -94,40 +94,21 @@
     <div class="chat-container">
         <div class="chat-box">
             <div class="chat-header">Chat</div>
-            <div class="chat-messages" id="history"></div>
+            <div class="chat-messages" id="messagesLogs"></div>
             <div class="chat-input">
+                 <i id="username"></i>
                 <input type="text" id="chatBox" placeholder="Escribe tu mensaje...">
                 <button id="sendButton">Enviar</button>
             </div>
         </div>
     </div>
-    
 </body>
 
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>
 <script>
-    // Conecta el cliente a Socket.io
-    const socket = io();
-
-    // Función para enviar mensajes
-    function sendMessage() {
-        const chatBox = document.getElementById('chatBox');
-        const message = chatBox.value;
-        chatBox.value = '';
-
-        // Envía el mensaje al servidor
-        socket.emit('message', message);
-    }
-
-    // Maneja el evento de recibir mensajes
-    socket.on('message', (message) => {
-        const historyContainer = document.getElementById('history');
-        const messageElement = document.createElement('div');
-        messageElement.textContent = message;
-        historyContainer.appendChild(messageElement);
-    });
-
-    // Asocia la función `sendMessage` al evento click del botón
-    const sendButton = document.getElementById('sendButton');
-    sendButton.addEventListener('click', sendMessage);
-</script>
+  
