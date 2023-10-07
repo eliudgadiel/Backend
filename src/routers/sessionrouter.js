@@ -1,38 +1,64 @@
-import { Router } from 'express'
-import UserModel from '../dao/models/user.model.js'
+import { Router } from "express";
+import passport from "passport";
 
-const router = Router()
 
-router.post('/register', async (req, res) => {
-    const userToRegister = req.body
-    const user = new UserModel(userToRegister)
-    await user.save()
-    res.redirect('/')
-})
+const router = Router();
 
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body
-    const user = await UserModel.findOne({email, password}).lean().exec()
-    if (!user){
-        return res.render('sessions/login', { error: 'Usuario no registrado' });
+router.post("/register", passport.authenticate("register", {failureRedirect: "/session/failRegister",
+  }),
+  async (req, res) => {
+    res.redirect("/");
+  }
+);
+
+router.get("/failRegister", (req, res) =>
+  res.send({ error: "Passport register failed" })
+);
+
+router.post(
+  "/login",
+  passport.authenticate("login", { failureRedirect: "/session/failLogin" }),
+  async (req, res) => {
+    if (!req.user) {
+      return res
+        .status(400)
+        .send({ status: "error", error: "Invalid credentials" });
     }
-    if (user.email === 'adminCoder@coder.com' && user.password === 'adminCod3r123') {
-        user.role = 'admin'
-    } else {
-        user.role = 'user'
-    }
-    req.session.user = user
-    res.redirect('/products')
-})
+    req.session.user = {
+      first_name: req.user.first_name,
+      last_name: req.user.last_name,
+      email: req.user.email,
+      age: req.user.age,
+      role: req.user.role
+    } 
+  
+    res.redirect("/products");
+  }
+);
 
-router.get('/logout', (req, res) => {
-    req.session.destroy(err => {
-        if(err) {
-            console.log(err)
-            res.status(500).render('errors/base', {error: err})
-        }else res.redirect('/')
-    })
-})
+router.get("/failLogin", (req, res) =>
+  res.send({ error: "Passport login failed" })
+);
 
+router.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).render("errors/base", { error: err });
+    } else res.redirect("/");
+  });
+});
 
-export default router
+router.get("/github", passport.authenticate("github", { scope: ["user:email"] }), (req, res) => {
+
+  });
+
+router.get("/githubcallback", passport.authenticate("github", { failureRedirect: "/login" }),
+  async (req, res) => {
+    console.log("Callback:", req.user);
+    req.session.user = req.user;
+    res.redirect("/products");
+  }
+);
+
+export default router;

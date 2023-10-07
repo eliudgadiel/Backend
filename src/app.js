@@ -11,6 +11,9 @@ import viewrouter from './routers/viewrouter.js'
 import chatrouter from './routers/chatrouter.js'
 import sessionviewrouter from './routers/session.view.router.js'
 import sessionrouter from './routers/sessionrouter.js'
+import passport from 'passport';
+import initializePassport from './config/passport.config.js';
+
 
 const MONGO_URI = 'mongodb://0.0.0.0:27017'
 const MONGO_DB_NAME = 'ecommerce'
@@ -29,6 +32,11 @@ app.use(session ({
   resave: true,
   saveUninitialized: true
 }))
+
+initializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 // setear handlebars
 app.use(express.static('./src/public'))
@@ -54,7 +62,7 @@ try {
 app.use('/', sessionviewrouter)
 app.use('/api/products', productrouter)
 app.use('/api/carts', cartrouter)
-app.use('/api/sessions', sessionrouter)
+app.use('/session', sessionrouter)
 app.use('/products', viewrouter )
 app.use('/carts', viewrouter)
 app.use('/chat', chatrouter)

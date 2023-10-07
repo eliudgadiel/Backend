@@ -1,13 +1,14 @@
 <h1>Iniciar Sesion</h1>
 
 
-<form action="/api/sessions/login" method="post">
+<form action="/session/login" method="post">
 Email: <input type="text" name="email">
 Password: <input type="text" name="password">
 {{#if error}}
   <p class="error">{{ error }}</p>
 {{/if}}
-<input type="submit" value="Iniciar Sesion"> <a href="/register">Registrate</a>
+<input type="submit" value="Iniciar Sesion"> <a href="/register">Registrate</a> <a href="/session/github">logueate con Github</a>
+
 </form>
 
 

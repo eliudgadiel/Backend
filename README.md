@@ -74,4 +74,3 @@ http://localhost:8080/api/products?category=hombre o mujer
 - este put no me funciono.. por que el thunder cLient se quedaba cargando reinicie la pc. todo y sigue igual. sino le funciona me avisa tutor
 
 - delete/ http://localhost:8080/api/carts/651081c91ee3ebcb0bd48362
-
