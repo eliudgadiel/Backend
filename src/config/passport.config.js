@@ -3,6 +3,8 @@ import local from "passport-local";
 import GitHubStrategy from "passport-github2";
 import { createHash, isValidPassword } from "../utils.js";
 import UserModel from "../dao/models/user.model.js";
+import CartModel from "../dao/models/cart.model.js"
+
 
 const localStrategy = local.Strategy;
 
@@ -23,17 +25,18 @@ const initializePassport = () => {
           if (user) {
             return done(null, false);
           }
+          const cartForNewUser = await CartModel.create({})
           const newUser = {
             first_name,
             last_name,
             email,
             age,
-            password: createHash(password),
+            password: createHash(password), cart: cartForNewUser._id, role: (email === 'adminCoder@coder.com') ? 'admin' : 'user'
           };
           const result = await UserModel.create(newUser);
           return done(null, result);
         } catch (err) {
-          return done(err);
+          return done('error al obtener el user');
         }
       }
     )
@@ -54,11 +57,7 @@ const initializePassport = () => {
             return done(null, false);
           }
           if (!isValidPassword(user, password)) return done(null, false);
-          if (user.email === 'adminCoder@coder.com' && user.password === 'adminCod3r123') {
-            user.role = 'admin'
-        } else {
-            user.role = 'user'
-        }
+          
           return done(null, user);
         } catch (err) {}
       }

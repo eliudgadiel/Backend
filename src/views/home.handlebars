@@ -56,29 +56,30 @@
 
 
 <script>
-addProductToCart = (pid) => {
-  fetch(`/api/carts`, {
-    method: 'post'
-  })
-   .then(result => result.json())
-   .then(result => {
-    if (result.status === 'error') throw new Error(result.error)
-    return result.payload._id
-   })
-   .then(cid =>
-   fetch(`/api/carts/${cid}/product/${pid}`,{
-    method: 'post'
-   })
-   )
-  .then(result => result.json())
-  .then(result => {
-    if (result.status === 'error') throw new Error(result.error)
-    alert(`Producto agregado al carrito con id=${result.payload._id}`)
-  })
-.catch(err => alert(`ocurrio un error ${err}`))
-}
- 
+  
+addProductToCart = (pid, cid) => {
+  const productId = pid;
+  const cartId = cid; 
 
+  fetch(`/api/carts/${cartId}/product/${productId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ productId, cartId }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message === 'Producto agregado al carrito') {
+        alert(`Producto agregado al carrito con éxito`);
+      } else {
+        alert(`Error: ${data.message}`);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
 
 </script>
 
