@@ -46,22 +46,12 @@ router.get('/:cid',  async (req, res) => {
 })
 
 
-router.post('/:cid/product/:pid',  async (req, res) => {
+router.post('/:cid/product/:pid',  async (req, res, next) => {
   try {
 
-    const cid = req.user.cart; 
+    const cid = req.params.cid; 
     const pid = req.params.pid;
-    const userId = req.user._id; 
-
-    const user = await UserModel.findById(userId);
-    if (!user) {
-      return res.status(404).json({ status: 'error', error: `User with id=${userId} not found` });
-    }
-
-    if (user.cart !== cid) {
-      return res.status(403).json({ status: 'error', error: 'Access denied' });
-    }
-
+ 
     const cartToUpdate = await cartModel.findById(cid);
     
     if (cartToUpdate === null) {
@@ -83,7 +73,7 @@ router.post('/:cid/product/:pid',  async (req, res) => {
     const result = await cartModel.findByIdAndUpdate(cid, cartToUpdate, { returnDocument: 'after' });
     res.status(201).json({ status: 'success', payload: result });
   } catch (error) {
-    next(error);
+    res.status(500).json({ status: 'error', error: error.message});
   }
 });
 
