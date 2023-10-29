@@ -1,7 +1,7 @@
 import { Router } from "express";
 import cartModel from "../dao/models/cart.model.js";
 import productModel from "../dao/models/product.model.js"
-import UserModel from "../dao/models/user.model.js";
+
 
 
 const router = Router()
@@ -87,47 +87,44 @@ router.post('/:cid/product/:pid',  async (req, res) => {
   }
 });
 
-
-
-
-router.post('/:cid/product/:pid', async (req, res) => {
-try {
-  const cid = req.params.cid
-  const pid = req.params.pid
-  const cartToUpdate = await cartModel.findById(cid)
-  if (cartToUpdate === null) {
-    return res.status(404).json({ status: 'error', error: `Cart with id=${cid} not found` })
-  }
-  const productToAdd = await productModel.findById(pid)
-  if (productToAdd == null)
-  return res.status(404).json({ status: 'error', error: `Product with id=${pid} not found` })
-
-  
-  const newProduct = {
-    product: productToAdd._id,
-    title: productToAdd.title,
-    price: productToAdd.price,
-    stock: productToAdd.stock,
-    description: productToAdd.description,
-    code: productToAdd.code,
-    category: productToAdd.category,
-    quantity: 1,
-  };
-
-  cartToUpdate.products.push(newProduct);
-
-  await cartToUpdate.save();
-
-  const updatedCart = await cartModel.findById(cid);
-  const payload = updatedCart; 
-
-  return res.status(200).json({ status: 'success', payload: payload });
-} catch (error) {
-  console.error(error);
-  return res.status(500).json({ status: 'error', error: 'Internal server error' });
-}
-});
-
+ /*router.post('/:cid/product/:pid', async (req, res) => {
+    try {
+      const cid = req.params.cid
+      const pid = req.params.pid
+      const cartToUpdate = await cartModel.findById(cid)
+      if (cartToUpdate === null) {
+        return res.status(404).json({ status: 'error', error: `Cart with id=${cid} not found` })
+      }
+      const productToAdd = await productModel.findById(pid)
+      if (productToAdd == null)
+      return res.status(404).json({ status: 'error', error: `Product with id=${pid} not found` })
+    
+      
+      const newProduct = {
+        product: productToAdd._id,
+        title: productToAdd.title,
+        price: productToAdd.price,
+        stock: productToAdd.stock,
+        description: productToAdd.description,
+        code: productToAdd.code,
+        category: productToAdd.category,
+        quantity: 1,
+      };
+    
+      cartToUpdate.products.push(newProduct);
+    
+      await cartToUpdate.save();
+    
+      const updatedCart = await cartModel.findById(cid);
+      const payload = updatedCart; 
+    
+      return res.status(200).json({ status: 'success', payload: payload });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ status: 'error', error: 'Internal server error' });
+    }
+    });*/
+    
 
 
   router.delete('/:cid/product/:pid',  async (req, res) => {
@@ -154,6 +151,8 @@ try {
       res.status(500).json({ status: 'error', erorr: err.message})
     }
   })
+
+ 
   
 
 router.put('/:cid',  async (req, res) => {
@@ -210,36 +209,6 @@ router.delete('/:cid',   async (req, res) => {
   }
 })
 
-
-/*router.post('/:cid/product/:pid',  async (req, res) => {
-  try {
-    const cid = req.params.cid
-    const pid = req.params.pid
-    const cartToUpdate = await cartModel.findById(cid)
-    if (cartToUpdate === null) {
-      return res.status(404).json({ status: 'error', error: `Cart with id=${cid} not found` })
-    }
-    const productToUpdate = await productModel.findById(pid)
-    if (productToUpdate === null) {
-    return res.status(404).json({ status: 'error', error: `Product with id=${pid} not found` })
-  }
-  const quantity = req.body.quantity
-  if (!quantity) {
-    return res.status(404).json({ status: 'error', error: 'field quantity is not optional' })
-  }
-  if (typeof quantity !== 'number'){
-    return res.status(400).json({ status: 'error', error: 'product quatity must be a number'})
-  }
-  if (quantity === 0) {
-    return res.status(400).json({ status: 'error', error: 'product quatity cannot be 0'})
-  }
-
-} catch (error) {
- 
-  return res.status(500).json({ status: 'error', error: 'Internal server error' });
-}
-  
-})*/
 
 
   export default router;
