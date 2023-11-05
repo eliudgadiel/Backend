@@ -4,11 +4,32 @@ import GitHubStrategy from "passport-github2";
 import { createHash, isValidPassword } from "../utils.js";
 import UserModel from "../dao/models/user.model.js";
 import CartModel from "../dao/models/cart.model.js"
-
+import config from '../config/config.js';  
 
 const localStrategy = local.Strategy;
 
 const initializePassport = () => {
+  UserModel.findOne({ email: 'adminCoder@coder.com' })
+    .then(admin => {
+      if (!admin) {
+        const adminUser = {
+          first_name: 'Admin',
+          last_name: 'Admin',
+          email: config.admin.email,
+          age: 25, 
+          password: createHash(config.admin.password), 
+          cart: null, 
+        };
+
+        UserModel.create(adminUser)
+          .then(result => {
+            console.log('Usuario administrador creado con éxito.');
+          })
+          .catch(err => {
+            console.error('Error al crear el usuario administrador:', err);
+          });
+        } })
+
   passport.use(
     "register",
     new localStrategy(
@@ -31,8 +52,11 @@ const initializePassport = () => {
             last_name,
             email,
             age,
-            password: createHash(password), cart: cartForNewUser._id, role: (email === 'adminCoder@coder.com') ? 'admin' : 'user'
+            password: createHash(password),
+            cart: cartForNewUser._id, 
+            role: (email === 'adminCoder@coder.com') ? 'admin' : 'user'
           };
+          await cartForNewUser.save()
           const result = await UserModel.create(newUser);
           return done(null, result);
         } catch (err) {
@@ -68,9 +92,9 @@ const initializePassport = () => {
     "github",
     new GitHubStrategy(
       {
-        clientID: "Iv1.b241921dc9f7a4bf",
-        clientSecret: "6e02dc418f52a2509a739fa20838524c062868da",
-        callbackURL: "http://localhost:8080/session/githubcallback",
+        clientID: config.github.clientId,
+        clientSecret: config.github.githubSecret,
+        callbackURL: config.github.githubCallbackUrl,
       },
       async (accessToken, refreshToken, profile, done) => {
         console.log(profile);

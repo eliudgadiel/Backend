@@ -1,11 +1,9 @@
 import { Router } from 'express'
-import { publicRouter } from '../middlewares/auth.middleware.js'
+import { chatController } from '../controllers/chat.controller.js'
 
 const router = Router()
 
-router.get('/', publicRouter, (req, res) => {
-    res.render('chat', {})
-})
+router.get('/', chatController)
 
 export default router
 
