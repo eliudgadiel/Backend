@@ -65,4 +65,9 @@ router.get("/githubcallback", passport.authenticate("github", { failureRedirect:
   }
 );
 
+router.get('/current', (req, res) => {
+  if (!req.session.user)return res.status(401).json({ status: 'error', error: 'No session detected! (You are not logged-in)' })
+  res.status(200).json({ status: 'success', payload: req.session.user }) 
+})
+
 export default router;

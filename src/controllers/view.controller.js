@@ -1,4 +1,4 @@
-import { getProducts } from "./product.controller.js";
+import { ProductService } from "../repositories/index.js";
 import { PORT } from "../app.js"
 import { getProductsFromCart } from "./cart.controller.js"
 import { publicRouter } from "../middlewares/auth.middleware.js";
@@ -7,7 +7,8 @@ import { publicRouter } from "../middlewares/auth.middleware.js";
 
 
 export const getViewProductController = (publicRouter, async (req, res)=> {
-    const result = await getProducts(req, res)
+   //const result = await getProducts(req, res)
+   const result = await ProductService.getAllPaginate(req, PORT)
     if (result.statusCode === 200) {
         const totalPages = []
         let link 
@@ -35,7 +36,7 @@ export const getViewProductController = (publicRouter, async (req, res)=> {
     }) 
 
 export const getViewRealTimeProductsController = (publicRouter, async (req, res) => {
-    const result = await getProducts(req, res)
+    const result = await ProductService.getAllPaginate(req, PORT)
 if (result.statusCode === 200) {
     res.render('realTimePRoducts', {products: result.response.payload})
 } else {

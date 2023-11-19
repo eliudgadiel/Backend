@@ -6,7 +6,7 @@
   <h2>{{user.first_name}} {{user.last_name}}</h2>
   <p><a href="/profile">{{user.email}}</a></p>
   <p>Role: {{user.role}}</p>
-  <p id="cid" data-cid="{{user.cart}}"> carrito : {{user.cart}} </p>
+  <p> Mi Carrito: <a href="/carts/{{user.cart}}">{{user.cart}}</a> </p>
   <a href="/session/logout">Logout</a>
 </div>
 
@@ -58,12 +58,9 @@
 
 <script>
 
-  
-  let cartId = document.getElementById('cid');
-  let cid = cartId.getAttribute('data-cid');
  
 let addProductToCart = (pid) => {
-  fetch(`/api/carts/${cid}/product/${pid}`, {
+  fetch(`/api/carts/{{user.cart}}/product/${pid}`, {
     method: 'post',
   })
     .then(result => result.json())

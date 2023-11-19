@@ -74,3 +74,22 @@ http://localhost:8080/api/products?category=hombre o mujer
 - este put no me funciono.. por que el thunder cLient se quedaba cargando reinicie la pc. todo y sigue igual. sino le funciona me avisa tutor
 
 - delete/ http://localhost:8080/api/carts/651081c91ee3ebcb0bd48362
+
+
+### Checkout y Ticket
+
+- Despues de agregar los productos en el carro y precionas en el boton de comprar, hace un checkout y lo envia por correo y sale un alert con los los tus datos con los productos que compraste y pide tu numero de telefono para enviarte un mensaje a tu celular.
+
+- Genera ticket de los datos de la compra 
+
+### Capas, Dao y Endpoints
+
+- Esta separado por capas
+- Contiene sus archivos DAO
+- Los endpoints estan protegidos por roles
+- Contiene DTO para que solo tengo algunos detos personales ruta /profile
+
+
+
+
+

@@ -1,4 +1,4 @@
-import messageModel from './dao/models/messages.models.js'
+import messageModel from './models/messages.models.js'
 
 export default (io) => {
     io.on("connection", async socket => {

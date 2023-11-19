@@ -8,13 +8,14 @@ import Sockets from './sockets.js'
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 import config from "./config/config.js"
+
 import cartrouter from './routers/cartrouter.js'
 import productrouter from './routers/productrouter.js'
 import viewrouter from './routers/viewrouter.js'
 import chatrouter from './routers/chatrouter.js'
 import sessionviewrouter from './routers/session.view.router.js'
 import sessionrouter from './routers/sessionrouter.js'
-
+import checkoutrouter  from './routers/checkoutrouter.js';
 
 
 const MONGO_URI = config.mongo.uri
@@ -69,7 +70,7 @@ app.use('/session', sessionrouter)
 app.use('/products', viewrouter )
 app.use('/carts', viewrouter)
 app.use('/chat', chatrouter)
-
+app.use('/checkout', checkoutrouter)
 
 Sockets(io)
 
