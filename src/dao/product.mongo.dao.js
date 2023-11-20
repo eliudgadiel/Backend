@@ -47,7 +47,7 @@ export default class ProductMongoDAO {
           } catch(err) {
             return {
               statusCode: 500,
-              response: { starus: 'error', error: err.message}
+              response: { status: 'error', error: err.message}
             }
           }  
         }

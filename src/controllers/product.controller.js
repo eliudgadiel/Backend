@@ -24,15 +24,23 @@ import { PORT } from "../app.js"
 
     export const createProductController = async (req, res) => {
       try {
-        const product = req.body;
-        const result = await ProductService.create(product)
-        const products = await ProductService.getAll()
-       req.io.emit('updatedProducts', products)
-       res.status(201).json({status: 'succes', payload: result})
+          const product = req.body;
+          console.log('Product data received:', product);
+  
+          const result = await ProductService.create(product);
+          console.log('Product created:', result);
+  
+          const products = await ProductService.getAll();
+          console.log('All products:', products);
+  
+          req.io.emit('updatedProducts', products);
+          console.log('req.io:',  req.io.emit);
+          res.json({ status: 'success', message: 'Producto creado con éxito' });
       } catch (error) {
-        res.status(500).json({ status: 'error', error: error.message });
+          console.error('Error creating product:', error);
+          res.status(500).json({ status: 'error', error: 'Error interno del servidor' });
       }
-    }
+  }
 
     export const updateProductContoller = async (req, res) => {
       try {

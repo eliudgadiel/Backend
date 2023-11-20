@@ -10,18 +10,19 @@ const productSchema = new mongoose.Schema({
                 ref: "product"
             },
             title: { type: String, required: true },
-            price: { type: Number, required: true },
-            stock: { type: String, required: true },
             description: { type: String, required: true },
-            code: { type: String, required: true },
-            category: { type: String, required: true }
+            price: { type: Number, required: true },
+            code: { type: String, required: true, },
+            status: { type: Boolean, default: true },
+            stock: { type: Number, required: true },
+            category: { type: String, required: true },thumbnails: { type: [String], default: [] },
         }],
         
     }
 });
 
-mongoose.set('strictQuery', false);
 
+mongoose.set('strictQuery', false);
 
 productSchema.plugin(mongoosePaginate);
 

@@ -15,8 +15,9 @@ document.getElementById("boton-create").addEventListener("click", () => {
     method: "post",
     body: JSON.stringify(body),
     headers: {
-      "content-type": "application/json",
+      "Content-type": "application/json"
     },
+    
   })
     .then((result) => result.json())
     .then((result) => {
@@ -25,6 +26,7 @@ document.getElementById("boton-create").addEventListener("click", () => {
     .then(() => fetch("/api/products"))
     .then((result) => result.json())
     .then((result) => {
+     
       if (result.status === "error") throw new Error(result.error);
       socket.emit("productList", result.payload);
       document.getElementById("title").value = "";
@@ -34,7 +36,9 @@ document.getElementById("boton-create").addEventListener("click", () => {
       document.getElementById("stock").value = "";
       document.getElementById("category").value = "";
     })
-    .catch((err) => alert(`Error: (/n${err})`));
+    .catch((err) => 
+    alert(`Error:(/n${err})`));
+    
 });
 
 deleteProduct = (id) => {
@@ -58,7 +62,7 @@ socket.on("updatedProducts", data => {
             <td><strong>producto</strong> </td>
             <td><strong>Descripcion</strong> </td>
             <td><strong> precio</strong></td>
-            <td><strong> codigo</strong></td>
+            <td><strong> code</strong></td>
             <td><strong> stock</strong></td>
             <td><strong> categori</strong></td>
     </tr>
@@ -77,5 +81,6 @@ socket.on("updatedProducts", data => {
         <td>${product.category}</td>
         `;
     table.getElementsByTagName("tbody")[0].appendChild(tr);
+    console.log("Product added to the table:", product),console.log("Product added to the table:", data)
   }
 });

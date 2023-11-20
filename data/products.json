@@ -9,7 +9,7 @@
       "../img/img-1.png"
     ],
     "status": true,
-    "code": "EP001",
+    "code": "AR001",
     "category": "hombre"
   },
   {
@@ -22,20 +22,7 @@
       "../img/img-2.png"
     ],
     "status": true,
-    "code": "EP002",
-    "category": "hombre"
-  },
-  {
-    "id": "3",
-    "title": "Saco de Hombre Marron Largo",
-    "price": 5500,
-    "stock": "3",
-    "description": "Saco de Hombre Marron Largo",
-    "thumbnail": [
-      "../img/img-3.png"
-    ],
-    "status": true,
-    "code": "EP003",
+    "code": "AR003",
     "category": "hombre"
   },
   {
@@ -48,7 +35,7 @@
       "../img/img-4.png"
     ],
     "status": true,
-    "code": "EP004",
+    "code": "AR004",
     "category": "hombre"
   },
   {
@@ -61,7 +48,7 @@
       "../img/img-5.png"
     ],
     "status": true,
-    "code": "EP005",
+    "code": "AR005",
     "category": "hombre"
   },
   {
@@ -74,7 +61,7 @@
       "../img/img-6.png"
     ],
     "status": true,
-    "code": "EP006",
+    "code": "AR006",
     "category": "mujer"
   },
   {
@@ -87,7 +74,7 @@
       "../img/img-7.png"
     ],
     "status": true,
-    "code": "EP007",
+    "code": "AR007",
     "category": "mujer"
   },
   {
@@ -100,7 +87,7 @@
       "../img/img-8.png"
     ],
     "status": true,
-    "code": "EP008",
+    "code": "AR008",
     "category": "mujer"
   },
   {
@@ -113,7 +100,7 @@
       "../img/img-9.png"
     ],
     "status": true,
-    "code": "EP009",
+    "code": "AR009",
     "category": "mujer"
   },
   {
@@ -126,7 +113,7 @@
       "../img/img-10.png"
     ],
     "status": true,
-    "code": "EP010",
+    "code": "AR010",
     "category": "mujer"
   }
 ]

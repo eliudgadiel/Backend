@@ -7,7 +7,6 @@ import { publicRouter } from "../middlewares/auth.middleware.js";
 
 
 export const getViewProductController = (publicRouter, async (req, res)=> {
-   //const result = await getProducts(req, res)
    const result = await ProductService.getAllPaginate(req, PORT)
     if (result.statusCode === 200) {
         const totalPages = []

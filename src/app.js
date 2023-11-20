@@ -16,7 +16,7 @@ import chatrouter from './routers/chatrouter.js'
 import sessionviewrouter from './routers/session.view.router.js'
 import sessionrouter from './routers/sessionrouter.js'
 import checkoutrouter  from './routers/checkoutrouter.js';
-
+import generateProductrouter  from './routers/generateProduct.reouter.js';
 
 const MONGO_URI = config.mongo.uri
 const MONGO_DB_NAME = config.mongo.dbname
@@ -71,6 +71,7 @@ app.use('/products', viewrouter )
 app.use('/carts', viewrouter)
 app.use('/chat', chatrouter)
 app.use('/checkout', checkoutrouter)
+app.use('/mockingproducts', generateProductrouter)
 
 Sockets(io)
 

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/eliudgadiel/Backend#readme",
   "dependencies": {
+    "@faker-js/faker": "^8.3.1",
     "bcrypt": "^5.1.1",
     "connect-mongo": "^5.0.0",
     "dotenv": "^16.3.1",
