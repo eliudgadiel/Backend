@@ -17,6 +17,7 @@ import sessionviewrouter from './routers/session.view.router.js'
 import sessionrouter from './routers/sessionrouter.js'
 import checkoutrouter  from './routers/checkoutrouter.js';
 import generateProductrouter  from './routers/generateProduct.reouter.js';
+import errorHandler from './middlewares/error.js'
 
 const MONGO_URI = config.mongo.uri
 const MONGO_DB_NAME = config.mongo.dbname
@@ -72,6 +73,8 @@ app.use('/carts', viewrouter)
 app.use('/chat', chatrouter)
 app.use('/checkout', checkoutrouter)
 app.use('/mockingproducts', generateProductrouter)
+app.use(errorHandler)
+
 
 Sockets(io)
 

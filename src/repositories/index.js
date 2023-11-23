@@ -5,8 +5,8 @@ import UserRepository from "./user.repository.js";
 
 
 
-export const ProductService = new ProductRepository(new Product)
+export const ProductService = new ProductRepository(new Product())
 
-export const CartService = new CartRepository(new Cart);
+export const CartService = new CartRepository(new Cart());
 
-export const UserService = new UserRepository(new User);
+export const UserService = new UserRepository(new User());

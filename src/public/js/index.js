@@ -81,6 +81,5 @@ socket.on("updatedProducts", data => {
         <td>${product.category}</td>
         `;
     table.getElementsByTagName("tbody")[0].appendChild(tr);
-    console.log("Product added to the table:", product),console.log("Product added to the table:", data)
   }
 });

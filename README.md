@@ -89,7 +89,10 @@ http://localhost:8080/api/products?category=hombre o mujer
 - Los endpoints estan protegidos por roles
 - Contiene DTO para que solo tengo algunos detos personales ruta /profile
 
+### Mocking y Manejo de errores
 
+-  /mockingproducts Ruta para la repuesta de 50 productos.
+- /products/realTimeProducts Ruta para creacion de productos  y manejos de errores. 
 
 
 

@@ -37,7 +37,7 @@ export const getViewProductController = (publicRouter, async (req, res)=> {
 export const getViewRealTimeProductsController = (publicRouter, async (req, res) => {
     const result = await ProductService.getAllPaginate(req, PORT)
 if (result.statusCode === 200) {
-    res.render('realTimePRoducts', {products: result.response.payload})
+    res.render('realTimeProducts', {products: result.response.payload})
 } else {
     res.status(result.statusCode).json({ status: 'error', error: result.response.error})
 }
