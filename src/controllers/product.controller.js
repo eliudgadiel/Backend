@@ -25,33 +25,29 @@ import { generateErrorInfo  } from "../services/errors/info.js";
       }
     }
 
-    export const createProductController = async (req, res) => {
+    export const createProductController = async (req, res, next) => {
       try {
-          const product = req.body;
-      
-     
-          if (!product.title || !product.price) {
-           
-            CustomError.createError({
-              name: "Product creacion error",
-              cause: generateErrorInfo(product),
-              message: "Error creacion del Product",
-              code: EErros.INVALID_TYPES_ERROR
-              
-            })
-         
-     
-          }
-          const result = await ProductService.create(product);
-          const products = await ProductService.getAll();
-          req.io.emit('updatedProducts', products);
-         res.send({ status: 'success', payload: result })
-        } catch( error) {
-            res.send({ status: 'error', payload: error })
-            
+        const product = req.body;
+    
+        if (!product.title || !product.price) {
+          throw CustomError.createError({
+            name: "Product creacion error",
+            cause: generateErrorInfo(product),
+            message: "Error creacion del Product",
+            code: EErros.INVALID_TYPES_ERROR
+          });
+        }
+    
+        const result = await ProductService.create(product);
+        const products = await ProductService.getAll();
+        req.io.emit('updatedProducts', products);
+        
+        res.send({ status: 'success', payload: result });
+      } catch (error) {
+        
+        next(error);
       }
-      
-  }
+    };
 
     export const updateProductContoller = async (req, res) => {
       try {
