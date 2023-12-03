@@ -2,7 +2,7 @@ import { ProductService } from "../repositories/index.js";
 import { PORT } from "../app.js"
 import { getProductsFromCart } from "./cart.controller.js"
 import { publicRouter } from "../middlewares/auth.middleware.js";
-
+import logger from "../logger.js";
 
 
 
@@ -21,7 +21,7 @@ export const getViewProductController = (publicRouter, async (req, res)=> {
             totalPages.push({ page: index, link})
         }
         const user = req.session.user
-        console.log(user);
+        logger.debug(user);
         res.render('home', { user, products: result.response.payload, paginateInfo: {
             hasPrevPage: result.response.hasPrevPage,
             hasNextPage: result.response.hasNextPage,

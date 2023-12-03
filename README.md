@@ -95,4 +95,9 @@ http://localhost:8080/api/products?category=hombre o mujer
 - /products/realTimeProducts Ruta para creacion de productos  y manejos de errores. 
 
 
+### Logger
+
+- Ruta o endpoint, para ver los logger /loggerTest.
+- El servidor en general esta implementado el logger de winston.
+- Sepuede ejecutar el proyecto en etorno desarrollo y productivo, esta implementado los diferentes logger segun el entorno.
 
