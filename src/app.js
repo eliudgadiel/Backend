@@ -58,7 +58,7 @@ try {
    useUnifiedTopology: true
   })
   logger.info('DB connected');
-  const server = app.listen(PORT, () => logger.info('server up'))
+  const server = app.listen(PORT, () => logger.http('server up'))
   const io = new Server(server)
   app.use((req, res, next) => {
     req.io = io

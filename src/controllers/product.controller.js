@@ -28,7 +28,8 @@ import { generateErrorInfo  } from "../services/errors/info.js";
     export const createProductController = async (req, res, next) => {
       try {
         const product = req.body;
-    
+        product.owner = req.session.user.email
+
         if (!product.title || !product.price) {
           throw CustomError.createError({
             name: "Product creacion error",
@@ -37,17 +38,16 @@ import { generateErrorInfo  } from "../services/errors/info.js";
             code: EErros.INVALID_TYPES_ERROR
           });
         }
-    
-        const result = await ProductService.create(product);
+
+        const result = await ProductService.create(product) 
         const products = await ProductService.getAll();
         req.io.emit('updatedProducts', products);
-        
-        res.send({ status: 'success', payload: result });
-      } catch (error) {
+        res.status(201).json({ status: 'success', payload: result })
+    } catch (error) {
         
         next(error);
       }
-    };
+    }
 
     export const updateProductContoller = async (req, res) => {
       try {
@@ -67,18 +67,25 @@ import { generateErrorInfo  } from "../services/errors/info.js";
     }
 
     export const deleteProductController = async (req, res) => {
-      try {
-        const id = req.params.pid;
-        const result = await ProductService.delete(id);
-    
+    try {
+        const id = req.params.pid
+        
+        if (req.session.user.role === 'premium') {
+            const product = await ProductService.getById(id)
+          
+            if (product.owner !== req.session.user.email) {
+                return res.status(403).json({ status: 'error', error: 'Not Authorized' })
+            }
+        }
+        
+        const result = await ProductService.delete(id)
         if (result === null) {
-          return res.status(404).json({ status: 'error', error: 'Not found' })
+            return res.status(404).json({ status: 'error', error: 'Not found' })
         }
         const products = await ProductService.getAll()
         req.io.emit('updatedProducts', products)
         res.status(200).json({ status: 'success', payload: products })
-       
-      } catch (error) {
-        res.status(500).json({ status: 'error', error: error.message });
-      }
+    } catch(err) {
+        res.status(500).json({ status: 'error', error: err.message })
     }
+}

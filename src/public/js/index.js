@@ -41,14 +41,18 @@ document.getElementById("boton-create").addEventListener("click", () => {
     
 });
 
+
+
 deleteProduct = (id) => {
   fetch(`/api/products/${id}`, {
     method: "delete",
+    
   })
     .then((result) => result.json())
     .then((result) => {
       if (result.status === "error") throw new Error(result.error);
-      socket.emit("productList", result.payload);
+      socket.emit('productList', result.payload)
+            alert(`Ok. Todo salió bien! :)\nEl producto eliminado con éxito!`)
      
     })
     .catch((err) => alert(`error : /n${err}`));
@@ -72,7 +76,7 @@ socket.on("updatedProducts", data => {
     let tr = document.createElement('tr');
     tr.innerHTML =
     ` 
-    <td><button class="deleteProduct" onclick="deleteProduct(${product.id})">Eliminar</button></td>
+    <td><button class="deleteProduct" onclick="deleteProduct('${product._id}')">Eliminar</button></td>
         <td>${product.title}</td>
         <td>${product.description}</td>
         <td>${product.price}</td>

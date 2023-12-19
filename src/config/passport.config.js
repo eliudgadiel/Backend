@@ -14,13 +14,13 @@ const initializePassport = () => {
     .then(admin => {
       if (!admin) {
         const adminUser = {
-          first_name: 'Admin',
-          last_name: 'Admin',
+          first_name: 'admin',
+          last_name: 'admin',
           email: config.admin.email,
           age: 25, 
           password: createHash(config.admin.password), 
           cart: null, 
-          role: 'Admin'
+          role: 'admin'
         };
 
         UserService.create(adminUser)
@@ -49,6 +49,7 @@ const initializePassport = () => {
             return done(null, false);
           }
           const cartForNewUser = await CartService.create({})
+         
           const newUser = {
             first_name,
             last_name,
@@ -58,6 +59,7 @@ const initializePassport = () => {
             cart: cartForNewUser._id, 
             role: (email === 'adminCoder@coder.com') ? 'admin' : 'user'
           };
+      
           await cartForNewUser.save()
           const result = await UserService.create(newUser);
           return done(null, result);

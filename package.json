@@ -30,7 +30,7 @@
     "express-session": "^1.17.3",
     "handlebars": "^4.7.8",
     "mailgen": "^2.0.28",
-    "mongoose": "^7.5.2",
+    "mongoose": "^7.6.7",
     "mongoose-paginate-v2": "^1.7.4",
     "mongose": "^0.0.2-security",
     "nodemailer": "^6.9.7",

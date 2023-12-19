@@ -54,5 +54,4 @@ export default class ProductMongoDAO {
     create = async(data) => await productModel.create(data)
     update = async(id, data) => await productModel.findByIdAndUpdate(id, data, { returnDocument: 'after' })
     delete = async(id) => await productModel.findByIdAndDelete(id)   
-    findById = async (id) => await productModel.findById(id).lean().exec();
 }

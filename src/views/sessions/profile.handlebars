@@ -10,11 +10,29 @@
         <li>Age: {{age}}</li>
         <li>Role: {{role}}</li>
     </ul>
+  
 </div>
-
+  <button onclick="cambiarRol('{{uid}}')">Cambiar Rol</button>
 <div>
     <a href="/products">Productos</a> <a href="/session/logout">Logout</a>
 </div>
+
+<script>
+  let cambiarRol = (uid) => {
+    fetch(`/session/premium/${uid}`, {
+      method: 'get',
+        headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(result => result.json())
+      .then(result => {
+        if (result.status === 'error') throw new Error(result.error);
+        alert(`Rol cambiado con éxito para ${result.payload.uid}`);
+      })
+      .catch(error => alert('Ocurrió un error: ' + error));
+  }
+</script>
 
 <style>
         
