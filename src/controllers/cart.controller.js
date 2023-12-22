@@ -47,7 +47,15 @@ export const getProductsFromCart = async (req, res) => {
   
       const cid = req.params.cid; 
       const pid = req.params.pid;
-   
+      const loggedInUserEmail = req.session.user.email;
+     
+    // Verificar si el usuario es el propietario del producto
+    const product = await ProductService.getById(pid);
+
+    if (req.session.user.role === 'premium' && product.owner === loggedInUserEmail) {
+      
+      return res.status(403).json({ status: 'error', error: 'Cannot add your own product to the cart' });
+    }
       const cartToUpdate = await CartService.findById(cid);
       
       if (cartToUpdate === null) {
@@ -142,6 +150,7 @@ export const getProductsFromCart = async (req, res) => {
     try{
       const cid = req.params.cid
       const pid = req.params.pid
+    
       const cartToUpdate = await CartService.findById(cid)
       if (cartToUpdate === null) {
         return res.status(404).json({ status: 'error', error: `Cart with id=${cid} Not found` })
@@ -150,6 +159,8 @@ export const getProductsFromCart = async (req, res) => {
       if (productToUpdate === null) {
         return res.status(404).json({ status: 'error', error: `Product with id=${pid} Not found` })
       }
+     
+
       const quantity = req.body.quantity
       if (!quantity) {
         return res.status(400).json({ status: 'error', error: 'Field "quantity" is not optional' })

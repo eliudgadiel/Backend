@@ -101,4 +101,3 @@ http://localhost:8080/api/products?category=hombre o mujer
 - El servidor en general esta implementado el logger de winston.
 - Sepuede ejecutar el proyecto en etorno desarrollo y productivo, esta implementado los diferentes logger segun el entorno.
 
-### 

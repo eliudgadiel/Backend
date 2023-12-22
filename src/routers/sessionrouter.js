@@ -136,14 +136,13 @@ router.post('/reset-password/:user', async (req, res) => {
 router.get('/premium/:uid', async (req, res) => {
   try {
     const user = await UserService.getById(req.params.uid)
-    console.log(user)
     
     await UserService.update(req.params.uid, { role: user.role === 'user' ? 'premium' : 'user'})
     res.json({ status: 'success', message: 'Se ha actualizado el rol del usuario'})
   } catch(err) {
+    console.error(err);
      res.json({ status: 'error', error: err.message})
   }
-  res.render('/')
 })
 
 

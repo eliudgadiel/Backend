@@ -43,7 +43,7 @@ document.getElementById("boton-create").addEventListener("click", () => {
 
 
 
-deleteProduct = (id) => {
+let deleteProduct = (id) => {
   fetch(`/api/products/${id}`, {
     method: "delete",
     
