@@ -101,3 +101,17 @@ http://localhost:8080/api/products?category=hombre o mujer
 - El servidor en general esta implementado el logger de winston.
 - Sepuede ejecutar el proyecto en etorno desarrollo y productivo, esta implementado los diferentes logger segun el entorno.
 
+### Recuperacion de contraseña por correo, e Impletacion de Owener para el user Premium
+
+- Por medio de un correo, te direcciona a ruta para que puedas recuperar tu contraseña.
+- Link del correo  expira después de 1 hora de enviado.
+- Si  trata de restablecer la contraseña con la misma contraseña del usuario,  impede e indica que no se puede colocar la misma contraseña.
+- Establece un nuevo rol para el schema del usuario llamado “premium” el cual estará habilitado también para crear productos.
+- El schema de producto cuenta con un campo “owner”, el cual haga referencia a la persona que creó el producto.
+- El campo owner  guarda sólo el _id  del usuario que lo haya creado.
+- El usuario premium sólo pueda borrar los productos que le pertenecen.
+El admin pueda borrar cualquier producto
+- El usuario premium NO pueda agregar a su carrito un producto que le pertenece.
+-  La ruta /session/premium/:uid  la cual permite cambiar el rol de un usuario, de “user” a “premium” y viceversa.
+
+
