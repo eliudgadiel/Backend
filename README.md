@@ -114,4 +114,22 @@ El admin pueda borrar cualquier producto
 - El usuario premium NO pueda agregar a su carrito un producto que le pertenece.
 -  La ruta /session/premium/:uid  la cual permite cambiar el rol de un usuario, de “user” a “premium” y viceversa.
 
+### Configuración del Entorno
 
+- Para ejecutar este proyecto, necesitarás configurar las siguientes variables de entorno. Puedes crear un archivo `.env` en la raíz del proyecto y copiar las siguientes líneas, reemplazando los valores con los tuyos:
+
+PORT=
+MONGO_URI=
+MONGO_DB_NAME=
+PERSISTENCE=
+ADMIN_EMAIL=
+ADMIN_PASS=
+GITHUB_CLIEN_ID=
+GITHUB_CLIENT_SECRET=
+GITHUB_CALLBACK_URL=
+NODEMAILER_USER=      
+NODEMAILER_PASS=
+TWILIO_ACCOUNT_SID=A
+TWILIO_AUTH_TOKEN=
+TWILIO_PHONE_NUMBER=
+ENVIRONMENT=
