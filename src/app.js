@@ -9,6 +9,8 @@ import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 import config from "./config/config.js"
 import logger from './logger.js';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express'
 
 import cartrouter from './routers/cartrouter.js'
 import productrouter from './routers/productrouter.js'
@@ -21,6 +23,21 @@ import checkoutrouter  from './routers/checkoutrouter.js';
 import generateProductrouter  from './routers/generateProduct.reouter.js';
 import errorHandler from './middlewares/error.js'
 
+export const swaggerOptions = {
+  definition: {
+    openapi: '3.1.0',
+    info: {
+    title: 'Ecommerce Look Fashion',
+    description: ' Esta API proporciona acceso a los recursos de una tienda de ropa online, incluyendo productos, categorías, carrito de compras, y más.',
+    version: '1.0.0',
+  }
+  },
+  apis: [
+    `./docs/**/*.yaml`,
+  ],
+}
+const specs = swaggerJsdoc(swaggerOptions)
+
 const MONGO_URI = config.mongo.uri
 const MONGO_DB_NAME = config.mongo.dbname
 export const PORT = config.apiserver.port
@@ -29,6 +46,7 @@ export const PORT = config.apiserver.port
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use('/docs', swaggerUiExpress.serve,swaggerUiExpress.setup(specs));
 
 app.use(session ({
   store: MongoStore.create({
