@@ -114,9 +114,9 @@ El admin pueda borrar cualquier producto
 - El usuario premium NO pueda agregar a su carrito un producto que le pertenece.
 -  La ruta /session/premium/:uid  la cual permite cambiar el rol de un usuario, de “user” a “premium” y viceversa.
 
-### Swagger
+## Swagger
 
-# Carts
+### Carts
 
 - GET /carts Get all carts
 - POST /carts Create a new cart
@@ -125,7 +125,7 @@ El admin pueda borrar cualquier producto
 - DELETE /carts/{cartId} Delete a cart by ID
 - DELETE /carts/{cartId}/items/{itemId} Delete an item from the cart
 
-# Products
+### Products
 
 - GET /products Get all Products
 - POST /products create a new product
@@ -133,12 +133,12 @@ El admin pueda borrar cualquier producto
 - PUT /productseditbyid/{productId} Update a product by ID
 - DELETE /productsdeletebyid/delete/{productId} Delete a product by ID
 
-# Schemas
+### Schemas
 
 - Cart
 - Product
 
-### Configuración del Entorno
+## Configuración del Entorno
 
 - Para ejecutar este proyecto, necesitarás configurar las siguientes variables de entorno. Puedes crear un archivo `.env` en la raíz del proyecto y copiar las siguientes líneas, reemplazando los valores con los tuyos:
 
