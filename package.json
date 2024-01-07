@@ -5,9 +5,9 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js ",
-    "dev": "node src/app.js "
+    "dev": "nodemon src/app.js ",
+    "test": " mocha test/supertest.test.js"
   },
   "repository": {
     "type": "git",
@@ -47,6 +47,8 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "chai": "^5.0.0",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }
