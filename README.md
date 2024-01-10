@@ -138,6 +138,10 @@ El admin pueda borrar cualquier producto
 - Cart
 - Product
 
+## Test
+
+- Para ejecutar el test = pm run test
+
 ## Configuración del Entorno
 
 - Para ejecutar este proyecto, necesitarás configurar las siguientes variables de entorno. Puedes crear un archivo `.env` en la raíz del proyecto y copiar las siguientes líneas, reemplazando los valores con los tuyos:
@@ -157,3 +161,4 @@ El admin pueda borrar cualquier producto
 - TWILIO_AUTH_TOKEN=
 - TWILIO_PHONE_NUMBER=
 - ENVIRONMENT=
+
