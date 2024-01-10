@@ -140,7 +140,7 @@ El admin pueda borrar cualquier producto
 
 ## Test
 
-- Para ejecutar el test = pm run test
+- Para ejecutar el test = npm run test
 
 ## Configuración del Entorno
 
