@@ -150,7 +150,11 @@ El admin pueda borrar cualquier producto
 
 - DELETE /api/user/:user_id para eliminar el usuario con su respectivo carrito asignado al correo. Cuando elimina el usuario envia un correo al correo del usuario avisando que fue eliminado por inactividad
 
-###
+- GET /products/realTimeProducts al eliminar un producto creado por un usuario PREMIUM le envia un correo que su producto a sido eliminado.
+
+### Proceso de compra con Stripe
+
+- Agragas productos al carrito, cuando precionas el boton Comprar, te envia un correo con los prodcutos del carrito con los datos y pasas al metodo de pago de Stripe, llena los datos que pide preciona el boton pagar, te imprime el ticket con tus datos y los datos de la compra, tambien te pide un numero de telefono para poder enviarte un mesaje de texto, despues de ingresar el numero telefonico le das al boton de enviar te envia el mensaje de texto, y te redirige a la pagina principal.
 
 
 ## Configuración del Entorno

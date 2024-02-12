@@ -33,18 +33,9 @@ button.addEventListener('click', async() => {
         });
           const data = await res.json();
 
-  // Configurar un temporizador para la función checkoutCorreo después de 5 minutos
-        const tiempoEspera = 5 * 60 * 1000; // 5 minutos en milisegundos
-        const temporizador = setTimeout(() => {
-            if (!compraCancelada) {
-                checkoutCorreo();
-            }
-        }, tiempoEspera);
-
+       await  checkoutCorreo();
         await checkout();
-        // Cancelar el temporizador si la compra se completa antes de los 5 minutos
-        clearTimeout(temporizador);
-
+    
         window.location.href = data.url;
     } catch (error) {
         console.error(error);
@@ -70,6 +61,7 @@ button.addEventListener('click', async() => {
       throw error;
     }
   };
+  
   const checkoutCorreo = () => {
     fetch(`/checkout/checkoutCorreo`, {
       method: "POST",

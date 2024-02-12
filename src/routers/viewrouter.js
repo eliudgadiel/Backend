@@ -4,7 +4,7 @@ import { getViewProductController, getViewRealTimeProductsController, getViewPro
 
 const router = Router()
 
-router.get("/", getViewProductController) 
+router.get("/",publicRouter, handlePolicies(['USER', 'ADMIN', 'PREMIUM']), getViewProductController) 
 router.get('/realTimeProducts', handlePolicies(['USER', 'ADMIN', 'PREMIUM']), getViewRealTimeProductsController) 
 router.get('/:cid', handlePolicies(['USER', 'ADMIN', 'PREMIUM']), getViewProductByIdController)
 

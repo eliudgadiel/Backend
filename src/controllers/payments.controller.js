@@ -55,11 +55,6 @@ export const afterPay = async (req, res,) => {
       
         
         const ticket = req.params.tickets
-      
-
-        // Recuperar detalles del carrito usando el ID del carrito
-        const cartDetails = await CartService.getById(cartId);
-        
 
      const ticketDetails = await ticketModel.findOne({ ticket });
      if (!ticketDetails) {
