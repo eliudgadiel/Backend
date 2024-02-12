@@ -142,6 +142,17 @@ El admin pueda borrar cualquier producto
 
 - Para ejecutar el test = npm run test
 
+### Admin
+ 
+## Rutas para Poder eliminar y cambiar de Rol de un usuario, solo (Admin)
+
+- GET /api/user trae todos los usuarios registrados. nombre, correo, rol, ultima coneccion y su inactividad. tambien puede cambiar el rol. 
+
+- DELETE /api/user/:user_id para eliminar el usuario con su respectivo carrito asignado al correo. Cuando elimina el usuario envia un correo al correo del usuario avisando que fue eliminado por inactividad
+
+###
+
+
 ## Configuración del Entorno
 
 - Para ejecutar este proyecto, necesitarás configurar las siguientes variables de entorno. Puedes crear un archivo `.env` en la raíz del proyecto y copiar las siguientes líneas, reemplazando los valores con los tuyos:
@@ -161,4 +172,4 @@ El admin pueda borrar cualquier producto
 - TWILIO_AUTH_TOKEN=
 - TWILIO_PHONE_NUMBER=
 - ENVIRONMENT=
-
+- SECRET_KEY_PAY=

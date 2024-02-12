@@ -7,3 +7,4 @@ export default class UserDTO {
         this.id = user._id
     }
 }
+

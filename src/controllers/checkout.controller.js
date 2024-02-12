@@ -5,13 +5,16 @@ import Mailgen from 'mailgen'
 import { UserService, CartService, ProductService } from "../repositories/index.js";
 import logger from '../logger.js';
 
+
 export const checkoutGmail = async (req, res) => {
     const userId = req.session.user;
     const id = req.session.user.cart
+   
     try {
         const user = await UserService.getById(userId);
         const destinatario = user.email;
         const productsInCart = await CartService.findById(id);
+     
 
         let configCorreo = {
             service: "gmail",
@@ -32,7 +35,8 @@ export const checkoutGmail = async (req, res) => {
 
         // Busco la información completa de cada producto en el carrito
         const detailedProducts = await Promise.all(productsInCart.products.map(async (product) => {
-            const productDetails = await ProductService.findById(product.product);
+            const productDetails = await ProductService.getById(product.product);
+            console.log('productDetails:',productDetails);
             return {
                 title: productDetails.title,
                 description: productDetails.description,
@@ -40,7 +44,7 @@ export const checkoutGmail = async (req, res) => {
                 quantity: product.quantity,
             };
         }));
-
+        console.log('detailedProducts:',detailedProducts);
         let response = {
             body: {
                 intro: "Your bill has arrived!",
@@ -58,19 +62,20 @@ export const checkoutGmail = async (req, res) => {
         
           
         let mail = Mailgenerator.generate(response);
-
+    
         let message = {
             from: 'Dpto Ventas - Look Fashion <lookfashion@gmail.com>',
             to: destinatario,
             subject: `Compra  realizada con éxito`, 
             html: mail
         };
-       
+      
         transporter.sendMail(message)
+        
             .then(() => {
                 return res.status(200).json({ message: 'You have received an email' });
             })
-            
+         
             .catch(err => res.status(500).json({ err: err.message }));
     } catch (error) {
         logger.error(error);
@@ -83,17 +88,17 @@ export const checkoutGmail = async (req, res) => {
 export const checkoutSms = (req, res) => {
     try {
       
-      const newPhoneNumber = req.body.phoneNumber.phoneNumber.value;
-      
+      const newPhoneNumber = req.body.phoneNumber;
+
       if (!newPhoneNumber) {
         throw new Error('Número de teléfono no proporcionado');
       }
    
       const accountSid = config.checkout.checkoutSmsSid;
       const authToken = config.checkout.checkoutSmsToken;
-  
+      
       const client = twilio(accountSid, authToken);
-  
+
       client.messages
         .create({
           body: 'Su compra ha sido exitosa, pronto estarán llegando sus productos',
@@ -115,4 +120,95 @@ export const checkoutSms = (req, res) => {
   };
   
   
+  // Función para enviar correo por inactividad
+export const sendInactiveEmail = async (user) => {
+    try {
+      const destinatario = user.email;
   
+      let configCorreo = {
+        service: "gmail",
+        auth: {
+          user: config.checkout.checkoutUser,
+          pass: config.checkout.checkoutPass
+        }
+      };
+  
+      let transporter = nodemailer.createTransport(configCorreo);
+      let Mailgenerator = new Mailgen({
+        theme: 'default',
+        product: {
+          name: 'LOOK FASHION',
+          link: 'https://lookfashion.netlify.app/'
+        }
+      });
+  
+      let response = {
+        body: {
+          intro: "Tu cuenta ha sido eliminada debido a inactividad.",
+          outro: 'Si deseas volver a utilizar nuestros servicios, por favor regístrate nuevamente.'
+        }
+      };
+  
+      let mail = Mailgenerator.generate(response);
+  
+      let message = {
+        from: 'Dpto Ventas - Look Fashion <lookfashion@gmail.com>',
+        to: destinatario,
+        subject: `Cuenta eliminada por inactividad`,
+        html: mail
+      };
+  
+      await transporter.sendMail(message);
+    } catch (error) {
+      console.error('Error sending inactive email:', error);
+      throw new Error('Error sending inactive email: ' + error.message);
+    }
+  };
+
+
+  //envia un correo cuando se elimina un producto de un usuario premium
+
+  export const sendDeletProductEmail = async (product) => {
+    try {
+      const destinatario = product;
+    
+
+      let configCorreo = {
+        service: "gmail",
+        auth: {
+          user: config.checkout.checkoutUser,
+          pass: config.checkout.checkoutPass
+        }
+      };
+  
+      let transporter = nodemailer.createTransport(configCorreo);
+      let Mailgenerator = new Mailgen({
+        theme: 'default',
+        product: {
+          name: 'LOOK FASHION',
+          link: 'https://lookfashion.netlify.app/'
+        }
+      });
+  
+      let response = {
+        body: {
+          intro: "Tu producto a sido eliminado.",
+          outro: 'Si deseas volver a tener tu producto vuelve a crearlo.'
+        }
+      };
+  
+      let mail = Mailgenerator.generate(response);
+  
+      let message = {
+        from: 'Dpto Ventas - Look Fashion <lookfashion@gmail.com>',
+        to: destinatario,
+        subject: `Producto a sido eliminado`,
+        html: mail
+      };
+  
+      await transporter.sendMail(message);
+    } catch (error) {
+      console.error('Error sending inactive email:', error);
+      throw new Error('Error sending inactive email: ' + error.message);
+    }
+  };

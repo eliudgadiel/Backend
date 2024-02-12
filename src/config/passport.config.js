@@ -41,30 +41,38 @@ const initializePassport = () => {
       },
       async (req, username, password, done) => {
         const { first_name, last_name, email, age } = req.body;
+        if (!email || email.trim() === '') {
+          return done(new Error('El email es obligatorio'));
+        }
         try {
           const user = await UserService.findOne({
             email: username,
           });
+        
           if (user) {
             return done(null, false);
+            
           }
-          const cartForNewUser = await CartService.create({})
-         
-          const newUser = {
+
+          const result = await UserService.create({
             first_name,
             last_name,
             email,
             age,
             password: createHash(password),
-            cart: cartForNewUser._id, 
-            role: (email === 'adminCoder@coder.com') ? 'admin' : 'user'
-          };
-      
-          await cartForNewUser.save()
-          const result = await UserService.create(newUser);
-          return done(null, result);
+            role: (email === 'adminCoder@coder.com') ? 'admin' : 'user',
+            lastConnection: new Date(),
+          });
+ 
+          if (result) {
+            const cartForNewUser = await CartService.create({ email });
+            await cartForNewUser.save();
+            result.cart = cartForNewUser._id;
+            await result.save();
+            return done(null, result);
+          }
         } catch (err) {
-          return done('error al obtener el user');
+          return done(err)
         }
       }
     )
@@ -115,7 +123,8 @@ const initializePassport = () => {
             last_name: profile._json.name,
             email: profile._json.email,
             password: "",
-            cart: cartForNewUser._id
+            cart: cartForNewUser._id,
+            lastConnection: new Date()
           });
           return done(null, newUser);
         } catch (err) {

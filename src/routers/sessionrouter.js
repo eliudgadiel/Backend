@@ -27,6 +27,12 @@ router.post("/login", passport.authenticate("login", { failureRedirect: "/sessio
         .status(400)
         .send({ status: "error", error: "Invalid credentials" });
     }
+ // Actualiza lastConnection con la fecha y hora actuales
+ req.user.lastConnection = new Date();
+    
+ // Guarda los cambios en la base de datos
+ await req.user.save();
+
     req.session.user = {
       _id: req.user._id,
       first_name: req.user.first_name,

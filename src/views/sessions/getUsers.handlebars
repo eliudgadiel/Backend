@@ -1,0 +1,132 @@
+
+<body>
+    <div class="container">
+        <h1>Lista de Usuarios</h1>
+        <div class="user-cards">
+            {{#each users}}
+                <div class="user-card">
+                    <strong>Nombre: {{first_name}}</strong><br>
+                    Correo: {{email}}<br>
+                    Rol: {{role}}   <br>
+                    Última Conexión: {{ lastConnection }}  <br>
+                    inactiveTime: {{ inactiveTime }}   <br>
+                    
+                   
+                    <button class="cambiarRol" onclick="cambiarRol('{{id}}')">Cambiar Rol</button>  <br>
+                    <button class="eliminarUser" onclick="eliminarUsuario('{{id}}')">Eliminar</button> 
+
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</body>
+
+<script>
+
+
+  let cambiarRol = (uid) => {
+    fetch(`/session/premium/${uid}`, {
+      method: 'get',
+        headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(result => result.json())
+      .then(result => {
+        
+        if (result.status === 'error') throw new Error(result.error);
+          
+        alert(`Rol cambiado con éxito para ${result.message}`);
+     
+      })
+      
+       .catch(error => {
+      console.error('Ocurrió un error:', error.message);
+      alert('Ocurrió un error: ' + error.message);
+    });
+  }
+  
+
+let eliminarUsuario = (user_id, id) => {
+  fetch(`/api/users/${user_id}`, {
+    method: 'delete',
+  })
+    .then((result) => result.json())
+    .then((result) => {
+      console.log('result:', result);
+      if (result.status === 'success') {
+        // Si la eliminación fue exitosa
+        alert(`Usuario Eliminado Por inactividad éxito id=${user_id}`);
+      } else if (result.status === 'active') {
+        // Si el usuario no fue eliminado porque está activo
+        alert(`Usuario ha estado activo en los últimos 30 minutos id=${user_id}`);
+      }
+    })
+    .catch(error => {
+      console.error('Ocurrió un error:', error.message);
+      alert('Ocurrió un error, ' + error.message);
+    });
+};
+</script>
+
+
+<style>
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+.user-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+     height: 200px;
+}
+
+.user-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+     display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+}
+.eliminarUser {
+    background-color: #ff5757; 
+    color: #fff; 
+    border: none; 
+    padding: 8px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+}
+
+.eliminarUser:hover {
+    background-color: #e04141; 
+}
+
+.cambiarRol {
+    background-color: #4CAF50; 
+    color: #fff; 
+    border: none; 
+    padding: 8px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+}
+
+.cambiarRol:hover {
+    background-color: #45a049; 
+}
+
+</style>

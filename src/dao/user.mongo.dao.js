@@ -7,5 +7,5 @@ export default class UserMongoDAO {
     update = async(id, data) => await userModel.findByIdAndUpdate(id, data, { returnDocument: 'after' })
     delete = async(id) => userModel.findByIdAndDelete(id)  
     findOne = async (query) => await userModel.findOne(query)
-    
+    find = async(rol) => await userModel.find(rol)
 }

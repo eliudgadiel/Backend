@@ -1,0 +1,121 @@
+<div class="card">
+    <h2>Detalles del Ticket</h2>
+
+    <p><strong>Código:</strong> {{ticketDTO.code}}</p>
+    
+    <h3>Productos:</h3>
+    <ul>
+        {{#each ticketDTO.products}}
+            <li>
+                {{this.quantity}} x {{this.productId}} - ${{this.price}}
+            </li>
+        {{/each}}
+    </ul>
+    
+    <p><strong>Total:</strong> ${{ticketDTO.amount}}</p>
+    <p><strong>Comprador:</strong> {{ticketDTO.purchaser}}</p>
+    <p><strong>Fecha y hora de compra:</strong> {{ticketDTO.purchase_datetime}}</p>
+
+<!-- Input y botón para enviar SMS -->
+<input type="text" id="telefono" placeholder="Ingrese su número de teléfono">
+    <button id="botonFinal" type="button" onclick="checkoutSms()">Enviar SMS</button>
+
+    <!-- Espacio para mostrar mensajes de error o éxito -->
+    <p id="mensaje"></p>
+</div>
+
+<script>
+  const checkoutSms = async () => {
+    try {
+      const telefonoInput = document.getElementById('telefono');
+      const mensajeElemento = document.getElementById('mensaje');
+
+      // Validación básica del número de teléfono
+      const phoneNumber = telefonoInput.value.trim();
+      if (!phoneNumber) {
+        throw new Error('Por favor, ingrese un número de teléfono válido.');
+      }
+
+      // Desactivar el botón mientras se procesa la solicitud
+      document.getElementById('botonFinal').disabled = true;
+
+      const response = await fetch('/checkout/checkoutSms', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber }),
+      });
+
+      const result = await response.json();
+
+      if (result.status === 'error') {
+        throw new Error(result.error);
+      } else {
+        mensajeElemento.textContent = 'Mensaje enviado con éxito.';
+        mensajeElemento.style.color = 'green';
+        telefonoInput.value = ''; // Limpiar el campo de teléfono después de un envío exitoso
+         window.location.href = '/products';
+      }
+    } catch (error) {
+      console.error('Error al enviar el mensaje:', error);
+      document.getElementById('mensaje').textContent = `Error: ${error.message}`;
+      document.getElementById('mensaje').style.color = 'red';
+    } finally {
+      // Habilitar el botón después de procesar la solicitud
+      document.getElementById('botonFinal').disabled = false;
+    }
+  };
+
+
+  
+</script>
+
+
+<style>
+     body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        width: 300px; /* Ajusta el tamaño según tus necesidades */
+    }
+
+    h2, h3 {
+        color: #333;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 8px;
+        color: #666;
+    }
+
+    input {
+        margin-top: 10px;
+        padding: 5px;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>

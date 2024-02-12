@@ -80,7 +80,8 @@ export const getProductsFromCart = async (req, res) => {
       res.status(500).json({ status: 'error', error: error.message});
     }
   }
-
+ 
+  // elimina un producto específico de un carrito
   export const deleteCartProductController = async (req, res) => {
     try {
       const cid = req.params.cid
@@ -181,6 +182,7 @@ export const getProductsFromCart = async (req, res) => {
   }
 }
 
+//elimina los productos del carrito asociado a un usuario
   export const deleteCartcontroller = async (req, res) => {
     try {
       const cid = req.params.cid
@@ -200,7 +202,7 @@ export const purchaseController = async(req, res) => {
   try {
     const cid = req.params.cid
     const cartToPurchase = await CartService.findById(cid)
-
+  
     if (cartToPurchase === null) {
       return res.status(404).json({ status: 'error', error: `Cart with id=${cid} Not found` })
     }
@@ -227,7 +229,7 @@ export const purchaseController = async(req, res) => {
 
         //calculamos el amount (total del ticket)
         amount += (productToPurchase.price * cartToPurchase.products[index].quantity)
-
+      
         //colocamos el producto en el Ticket (en memoria)
         productsToTicket.push({ product: productToPurchase._id, price: productToPurchase.price, quantity: cartToPurchase.products[index].quantity})
       }
@@ -237,7 +239,8 @@ export const purchaseController = async(req, res) => {
      await CartService.update(cid, {
       products: productsAfterPurchse}, {
         returnDocument: 'after' })
-
+        
+      
         //creamos el Ticket
         const result = await ticketModel.create({
           code: shortid.generate(),
@@ -245,9 +248,26 @@ export const purchaseController = async(req, res) => {
           amount,
           purchaser: req.session.user.email
         })
-        
+        const ticketDetails = await ticketModel.findById(result._id);
+       
         return res.status(201).json({ status: 'success', payload: result })
   } catch(err) {
     return res.status(500).json({ status: 'error', error: err.message })
 }
+}
+
+export const deleteCart = async (req, res) => {
+  try {
+  const cid = req.params.cid
+
+  const existingCid = await CartService.findById(cid)
+
+      if (!existingCid) {
+        return res.status(404).json({ status: 'error', error: 'Cart not found' });
+      }
+      await CartService.delete(existingCid);
+    } catch(err) {
+      res.status(500).json({ status: 'error', error: err.message})
+    }
+
 }

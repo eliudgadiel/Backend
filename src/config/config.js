@@ -29,6 +29,9 @@ export default {
     },
     logger: {
         newLogger: process.env.ENVIRONMENT
+    },
+    pay: {
+        stripe: process.env.SECRET_KEY_PAY
     }
     
    

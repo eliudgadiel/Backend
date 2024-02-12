@@ -9,40 +9,11 @@
         <li>Email: {{email}}</li>
         <li>Age: {{age}}</li>
        <li >Role: {{role}}</li>
-        
+         <li > <a href="/products">Productos</a> <a href="/session/logout">Logout</a></li>
     </ul>
-  
-</div>
-  <button onclick="cambiarRol('{{id}}')">Cambiar Rol</button>
-<div>
-    <a href="/products">Productos</a> <a href="/session/logout">Logout</a>
 </div>
 
-<script>
 
-  let cambiarRol = (uid) => {
-    fetch(`/session/premium/${uid}`, {
-      method: 'get',
-        headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(result => result.json())
-      .then(result => {
-        
-        if (result.status === 'error') throw new Error(result.error);
-          
-        alert(`Rol cambiado con éxito para ${result.message}`);
-     
-      })
-      
-       .catch(error => {
-      console.error('Ocurrió un error:', error.message);
-      alert('Ocurrió un error: ' + error.message);
-    });
-  }
-  
-</script>
 
 <style>
         

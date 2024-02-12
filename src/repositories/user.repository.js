@@ -8,4 +8,5 @@ export default class UserRepository {
     update = async(id, data) => await this.dao.update(id, data)
     delete = async(id) => await this.dao.delete(id) 
     findOne = async (query) => await this.dao.findOne(query)
+    find = async(rol) => await this.dao.find(rol)
 }

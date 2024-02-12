@@ -15,9 +15,11 @@ import swaggerUiExpress from 'swagger-ui-express'
 import cartrouter from './routers/cartrouter.js'
 import productrouter from './routers/productrouter.js'
 import viewrouter from './routers/viewrouter.js'
+import userrouter from './routers/userrouter.js'
 import chatrouter from './routers/chatrouter.js'
 import loggerrouter from './routers/routerlogger.js';
 import sessionviewrouter from './routers/session.view.router.js'
+import payrouter from './routers/paymentsrouter.js'
 import sessionrouter from './routers/sessionrouter.js'
 import checkoutrouter  from './routers/checkoutrouter.js';
 import generateProductrouter  from './routers/generateProduct.reouter.js';
@@ -87,7 +89,9 @@ try {
 app.use('/', sessionviewrouter)
 app.use('/api/products', productrouter)
 app.use('/api/carts', cartrouter)
+app.use('/api/users', userrouter)
 app.use('/session', sessionrouter)
+app.use('/pay', payrouter)
 app.use('/products', viewrouter )
 app.use('/carts', viewrouter)
 app.use('/chat', chatrouter)
